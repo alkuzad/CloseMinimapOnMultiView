@@ -18,6 +18,8 @@ class CloseMinimapOnMultiView(sublime_plugin.EventListener):
             num = len(args['cells'])
         elif cmd_name == 'new_pane':
             num = window.num_groups() + 1
+        elif cmd_name == 'close_pane':
+            num = window.num_groups() - 1
         if num > 1 and self.minimap_visible(window) is True:
             window.set_minimap_visible(False)
         elif num <= 1 and self.minimap_visible(window) is False:
