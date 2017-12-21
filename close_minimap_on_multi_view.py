@@ -1,17 +1,24 @@
 import sublime
 import sublime_plugin
 
+def plugin_loaded():
+    for window in sublime.windows():
+        if window.num_groups() > 1:
+            window.set_minimap_visible(False)
 
 class CloseMinimapOnMultiView(sublime_plugin.EventListener):
 
     @staticmethod
-    def minimap_visible():
-        return sublime.active_window().is_minimap_visible()
+    def minimap_visible(window):
+        return window.is_minimap_visible()
 
     def on_window_command(self, window, cmd_name, args):
+        num = None
         if cmd_name == 'set_layout':
             num = len(args['cells'])
-            if num > 1 and self.minimap_visible() is True:
-                window.set_minimap_visible(False)
-            elif num <= 1 and self.minimap_visible() is False:
-                window.set_minimap_visible(True)
+        elif cmd_name == 'new_pane':
+            num = window.num_groups() + 1
+        if num > 1 and self.minimap_visible(window) is True:
+            window.set_minimap_visible(False)
+        elif num <= 1 and self.minimap_visible(window) is False:
+            window.set_minimap_visible(True)
