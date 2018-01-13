@@ -1,0 +1,7 @@
+{
+  // Defines which layout property will be checked:
+  // cells: both rows and columns increments cells count
+  // rows: increments when users adds row
+  // cols: increments when users adds columns
+  "check_type": "cols"
+}
