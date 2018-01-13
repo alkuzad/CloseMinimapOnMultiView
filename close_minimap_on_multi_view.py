@@ -39,7 +39,11 @@ class MinimapVisibilitySetter(object):
         self.check_type = check_type
 
     def views_number(self):
-        return len(self.window.get_layout()[self.check_type]) - 1
+        if self.check_type == 'cells':
+            return len(self.window.get_layout()[self.check_type])
+        else:
+            return len(self.window.get_layout()[self.check_type]) - 1
+
 
     def set_visibility(self):
         if self.views_number() > 1 and self.window.is_minimap_visible() is True:
